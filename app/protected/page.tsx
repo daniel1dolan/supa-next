@@ -1,5 +1,4 @@
 import FetchDataSteps from "@/components/tutorial/fetch-data-steps";
-import { Input } from "@/components/ui/input";
 import { createClient } from "@/utils/supabase/server";
 import { InfoIcon } from "lucide-react";
 import { redirect } from "next/navigation";
@@ -14,16 +13,6 @@ export default async function ProtectedPage() {
   if (!user) {
     return redirect("/sign-in");
   }
-
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      console.log(file);
-    }
-    if (!file) return
-    const resUpload = await supabase.storage.from("Main").upload(file.name, file);
-    console.log(resUpload);
-  };
 
   return (
     <div className="flex-1 w-full flex flex-col gap-12">
@@ -43,14 +32,6 @@ export default async function ProtectedPage() {
       <div>
         <h2 className="font-bold text-2xl mb-4">Next steps</h2>
         <FetchDataSteps />
-      </div>
-      <div>
-        <h2 className="font-bold text-2xl mb-4">Upload a file</h2>
-        <p>
-          You can upload a file to the database by using the Supabase Storage
-          API.
-        </p>
-        <Input type="file" onChange={handleFileChange} />
       </div>
     </div>
   );
