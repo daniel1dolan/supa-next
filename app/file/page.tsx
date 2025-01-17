@@ -12,7 +12,8 @@ export default function Page() {
             console.log(file);
         }
         if (!file) return
-        const resUpload = await supabase.storage.from("Main").upload(file.name, file);
+        const folderName = "stuff"
+        const resUpload = await supabase.storage.from("Main").upload(`${folderName}/${file.name}`, file);
         console.log(resUpload);
     };
 
